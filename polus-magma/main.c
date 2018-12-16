@@ -43,6 +43,7 @@ void calculate(int size) {
     magmaFloatComplex *cmatrix;
     printf("Matrix allocation with size %d", size);
     magma_cmalloc_pinned(&cmatrix, mSize);
+    printf("Float matrix allocated with elements count %d", mSize);
     magma_zmalloc_pinned(&matrix, mSize);
     
     printf("Allocated with elements count %d", mSize);
