@@ -6,7 +6,7 @@
 
 #define RELEASE
 //#ifndef RELEASE
-int iterationCount = 1;
+int iterationCount = 2;
 //#else
 //int iterationCount = INT_MAX;
 //#endif
