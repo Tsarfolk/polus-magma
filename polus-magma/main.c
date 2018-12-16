@@ -27,8 +27,8 @@ void init() {
     magma_init();
 }
 
-void print(const magmaFloatComplex *A, int size) {
-    magma_cprint(size, size, A, size);
+void print(const magmaDoubleComplex *A, int size) {
+    magma_zprint(size, size, A, size);
 }
 
 void debug_print() {
@@ -36,11 +36,15 @@ void debug_print() {
 }
 
 void calculate(int size) {
-    int size = sizes[i];
     magma_int_t mSize = size * size;
     
-    magmaFloatComplex *matrix;
-    magma_cmalloc_pinned(&matrix, mSize);
+    magmaDoubleComplex *matrix;
+    magma_zmalloc_pinned(&matrix, mSize);
+    
+    magma_int_t ione = 1;
+    magma_int_t ISEED[4] = {0, 0, 0, 1};
+    
+    lapackf77_zlarnv(&ione, ISEED, &size, matrix);
     
     float max = 0;
     for (int i = 0; i < size; i++) {
@@ -55,7 +59,7 @@ void calculate(int size) {
     
     for(int i = 0; i < size; ++i) {
         int index = i + size * i;
-        matrix[index] = MAGMA_C_ADD(matrix[index],  MAGMA_C_MAKE(max, max));
+        matrix[index] = MAGMA_Z_ADD(matrix[index],  MAGMA_Z_MAKE(max, max));
     }
     
     print(matrix, size);
