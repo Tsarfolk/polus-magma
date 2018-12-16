@@ -128,36 +128,36 @@ void calculate(int size) {
     // -------- dealloc --------
     magma_free_pinned(lWork);
     magma_free_pinned(tau);
-//
-//    // -------- alloc --------
-//    magmaDoubleComplex *eigMatrix, *A, *eig;
-//    result = magma_malloc_pinned( (void**) &eigMatrix, zSize * sizeof(magmaDoubleComplex));
-//    if (result) {
-//        printf("Error on allocation, result %d", result);
-//        return;
-//    }
-//    result = magma_malloc_pinned( (void**) &A, zSize * sizeof(magmaDoubleComplex));
-//    if (result) {
-//        printf("Error on allocation, result %d", result);
-//        return;
-//    }
-//    result = magma_malloc_pinned( (void**) &eig, zSize * sizeof(magmaDoubleComplex));
-//    if (result) {
-//        printf("Error on allocation, result %d", result);
-//        return;
-//    }
-//
-//    for(int i = 0; i < mSize; i++){
-//        eigMatrix[i] = MAGMA_Z_ZERO;
-//        A[i] = MAGMA_Z_ZERO;
-//    }
-//    for(int i = 0; i < zSize; i++){
-//        double real = (rand() % 5000) / 2500.0 - 1;
-//        double imaginary = (rand() % 5000) / 2500.0 - 1;
-//        magmaDoubleComplex complexNumber = MAGMA_Z_MAKE(real, imaginary);
-//        eig[i] = complexNumber;
-//        eigMatrix[i + zSize * i] = complexNumber;
-//    }
+
+    // -------- alloc --------
+    magmaDoubleComplex *eigMatrix, *A, *eig;
+    result = magma_malloc_pinned( (void**) &eigMatrix, mSize * sizeof(magmaDoubleComplex));
+    if (result) {
+        printf("Error on allocation, result %d", result);
+        return;
+    }
+    result = magma_malloc_pinned( (void**) &A, zSize * sizeof(magmaDoubleComplex));
+    if (result) {
+        printf("Error on allocation, result %d", result);
+        return;
+    }
+    result = magma_malloc_pinned( (void**) &eig, zSize * sizeof(magmaDoubleComplex));
+    if (result) {
+        printf("Error on allocation, result %d", result);
+        return;
+    }
+
+    for(int i = 0; i < mSize; i++){
+        eigMatrix[i] = MAGMA_Z_ZERO;
+        A[i] = MAGMA_Z_ZERO;
+    }
+    for(int i = 0; i < zSize; i++){
+        double real = (rand() % 5000) / 2500.0 - 1;
+        double imaginary = (rand() % 5000) / 2500.0 - 1;
+        magmaDoubleComplex complexNumber = MAGMA_Z_MAKE(real, imaginary);
+        eig[i] = complexNumber;
+        eigMatrix[i + zSize * i] = complexNumber;
+    }
 //
 //    magma_device_t device = 0;
 //    magma_getdevice(&device);
