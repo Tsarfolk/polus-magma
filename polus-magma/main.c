@@ -6,7 +6,7 @@
 
 #define RELEASE
 #ifndef RELEASE
-int iterationCount = 2;
+int iterationCount = 100;
 #else
 int iterationCount = INT_MAX;
 #endif
@@ -222,15 +222,11 @@ void calculate(int size) {
 
 void start() {
     //#ifdef RELEASE
-    printf("Will init\n");
     init();
-    printf("Did init\n");
     
     //#endif
     srand((unsigned int)time(NULL));
     randDenominator = 10000;
-    calculate(1000);
-    return;
 
     printf("Will generate\n");
     int sizes[100];
