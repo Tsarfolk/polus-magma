@@ -77,21 +77,23 @@ void calculate(int size) {
         matrix[index] = MAGMA_Z_ADD(matrix[index], MAGMA_Z_MAKE(max, max));
     }
 
-    print(matrix, size);
+    print(matrix, zSize);
+    // -------- actual work --------
     
-//    magmaDoubleComplex *lWork, *tau;
-//    magma_int_t nb = magma_get_zgeqrf_nb(size, size);
-//    magma_int_t lWorkSize = nb * size;
-//    magma_cmalloc_pinned(&lWork, lWorkSize);
-//    magma_cmalloc_pinned(&tau, size);
-//
-//    magma_int_t info;
-//    magma_int_t result = magma_zgeqrf(size, size, matrix, size, tau, lWork, lWorkSize, &info);
-//    print(matrix, size);
-//    printf("Info is %d", info);
-//    printf("Result is %d", info);
-//
-//    magma_free_pinned(matrix);
+    magmaDoubleComplex *lWork, *tau;
+    magma_int_t nb = magma_get_zgeqrf_nb(size, zSize);
+    magma_int_t lWorkSize = nb * zSize;
+    magma_cmalloc_pinned(&lWork, lWorkSize);
+    magma_cmalloc_pinned(&tau, zSize);
+
+    magma_int_t info;
+    magma_int_t result = magma_zgeqrf(zSize, zSize, matrix, zSize, tau, lWork, lWorkSize, &info);
+    print(matrix, size);
+    res = magma_zungqr2(zSize, zSize, zSize, matrix, zSize, tau, &info);
+    printf("Info is %d", info);
+    printf("Result is %d", info);
+
+    magma_free_pinned(matrix);
 }
 //#endif
 
