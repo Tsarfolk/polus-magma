@@ -6,7 +6,7 @@
 
 #define RELEASE
 //#ifndef RELEASE
-int iterationCount = 1;
+int iterationCount = 5;
 //#else
 //int iterationCount = INT_MAX;
 //#endif
@@ -126,8 +126,8 @@ void calculate(int size) {
     magma_free_pinned(tau);
     
     // -------- alloc --------
-    magmaDoubleComplex *eig_matrix, *A, *eig;
-    result = magma_malloc_pinned( (void**) &eig_matrix, zSize * sizeof(magmaDoubleComplex));
+    magmaDoubleComplex *eigMatrix, *A, *eig;
+    result = magma_malloc_pinned( (void**) &eigMatrix, zSize * sizeof(magmaDoubleComplex));
     if (result) {
         printf("Error on allocation, result %d", result);
         return;
@@ -144,15 +144,15 @@ void calculate(int size) {
     }
     
     for(int i = 0; i < mSize; i++){
-        eig_matrix[i] = MAGMA_Z_ZERO;
+        eigMatrix[i] = MAGMA_Z_ZERO;
         A[i] = MAGMA_Z_ZERO;
     }
     for(int i = 0; i < zSize; i++){
-        double real = (rand() % 1000) / 500.0 - 1;
-        double imaginary = (rand() % 1000) / 500.0 - 1;
+        double real = (rand() % 5000) / 2500.0 - 1;
+        double imaginary = (rand() % 5000) / 2500.0 - 1;
         magmaDoubleComplex complexNumber = MAGMA_Z_MAKE(real, imaginary);
         eig[i] = complexNumber;
-        eig_matrix[i + zSize * i] = complexNumber;
+        eigMatrix[i + zSize * i] = complexNumber;
     }
     
     magma_device_t device = 0;
@@ -160,12 +160,12 @@ void calculate(int size) {
     magma_queue_t queue = NULL;
     magma_queue_create(device, &queue);
     
-    magmablas_zgemm(MagmaNoTrans, MagmaNoTrans, zSize, zSize, zSize, MAGMA_Z_ONE, eig_matrix, zSize, matrix, zSize, MAGMA_Z_ZERO, A, zSize, queue);
+    magmablas_zgemm(MagmaNoTrans, MagmaNoTrans, zSize, zSize, zSize, MAGMA_Z_ONE, eigMatrix, zSize, matrix, zSize, MAGMA_Z_ZERO, A, zSize, queue);
     magmablas_zgemm(MagmaConjTrans, MagmaNoTrans, zSize, zSize, zSize, MAGMA_Z_ONE, matrix, zSize, A, zSize, MAGMA_Z_ZERO, A, zSize, queue);
     
     magma_int_t workSize = (1 + 3 * zgeqrfNb) * zSize;
-    magmaDoubleComplex *w = NULL, *workMatr, *VL, *VR;
-    result = magma_malloc_pinned( (void**) &w, zSize * sizeof(magmaDoubleComplex));
+    magmaDoubleComplex *wMatr = NULL, *workMatr, *VL, *VR;
+    result = magma_malloc_pinned( (void**) &wMatr, zSize * sizeof(magmaDoubleComplex));
     if (result) {
         printf("Error on allocation, result %d", result);
         return;
@@ -184,11 +184,11 @@ void calculate(int size) {
     }
     
     double gpuTimeStart = magma_sync_wtime (NULL);
-    result = magma_zgeev_m(MagmaNoVec, MagmaNoVec, zSize, A, zSize, w, VL, zSize, VR, zSize, workMatr, workSize, realWork, &info);
+    result = magma_zgeev_m(MagmaNoVec, MagmaNoVec, zSize, A, zSize, wMatr, VL, zSize, VR, zSize, workMatr, workSize, realWork, &info);
     double gpuTimeTotal = magma_sync_wtime (NULL) - gpuTimeStart;
     
     for(int i = 0; i < zSize; ++i){
-        magmaDoubleComplex lambda = w[i];
+        magmaDoubleComplex lambda = wMatr[i];
         int j = 0;
         while(MAGMA_Z_ABS(MAGMA_Z_SUB(eig[j], lambda)) > 0.0001 && j < zSize) {
             ++j;
@@ -200,14 +200,17 @@ void calculate(int size) {
     
     double zblas = magma_cblas_dznrm2(zSize, eig, 1);
     
-    printf("MatrixSize: %d x %d\n", zSize, zSize);
-    printf("Time: %f\n", gpuTimeTotal);
-    printf("Correct: %s", fabs(zblas) < 0.0001 ? "yes": "no");
-    printf("Norm of diff: %0.3f.\n", zblas);
+    printf("Matrix dimension\n", zSize, zSize);
+    printf("GPU time: %f\n", gpuTimeTotal);
+    printf("Is correct: %s\n", fabs(zblas) < 0.0001 ? "yes": "no");
+    printf("Norma: %f\n", zblas);
     printf("------------------------------------------------\n");
     
+    magma_free_pinned(VL);
+    magma_free_pinned(VR);
+    magma_free_pinned(wMatr);
     magma_free_pinned(eig);
-    magma_free_pinned(eig_matrix);
+    magma_free_pinned(eigMatrix);
     magma_free_pinned(A);
     magma_free_pinned(matrix);
 }
