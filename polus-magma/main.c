@@ -1,9 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
+
+#define RELEASE
+#ifndef RELEASE
+int iterationCount = 1;
+#else
+int iterationCount = INT_MAX;
+#endif
+
+#ifdef RELEASE
 #include "magma_v2.h"
 #include "magma_lapack.h"
+#endif
 
+float randDenominator = 0;
+
+float randNumber() {
+    return (float)rand() / randDenominator;
+}
+
+#ifdef RELEASE
 void init() {
     magma_init();
 }
@@ -16,8 +34,39 @@ void debug_print() {
     printf("Hello world!");
 }
 
-int main(int argc, const char * argv[]) {
+void calculate(int size) {
+    int size = sizes[i];
+    magma_int_t mSize = size * size;
+    
+    magmaFloatComplex *matrix;
+    magma_cmalloc_pinned(&matrix, mSize);
+    
+    float max = 0;
+    for (int i = 0; i < size; i++) {
+        float number = randNumber();
+        matrix[i + size * i] = number;
+        if (number > max) {
+            max = number;
+        }
+    }
+    
+    printf("%d", max);
+    
+    for(int i = 0; i < size; ++i) {
+        int index = i + size * i;
+        matrix[index] = MAGMA_C_ADD(matrix[index],  MAGMA_C_MAKE(max, max));
+    }
+    
+    print(matrix, size);
+}
+#endif
+
+void start() {
+#ifdef RELEASE
     init();
+#endif
+    srand((unsigned int)time(NULL));
+    randDenominator = RAND_MAX / 10000;
     
     int sizes[100];
     int i = 0;
@@ -36,35 +85,18 @@ int main(int argc, const char * argv[]) {
         }
     }
     
-    for (int i = 0; i < 1; i++) {
+    count = iterationCount < count ? iterationCount : count;
+    for (int i = 0; i < count; i++) {
         int size = sizes[i];
-        magma_int_t mSize = size * size;
         
-        magmaFloatComplex *matrix;
-        magma_cmalloc_pinned(&matrix, mSize);
-
-        magma_int_t ione     = 1;
-        magma_int_t ISEED[4] = {0 ,0 ,0 ,1};
-        lapackf77_clarnv( &ione, ISEED, &size, matrix );
-        
-        double max = 0;
-        for (int i = 0; i < size; ++i){
-            if (MAGMA_C_ABS(matrix[i]) > max) {
-                max = MAGMA_C_ABS(matrix[i]);
-            }
-        }
-        printf("%d", max);
-        
-        for(int i = 0; i < size; ++i) {
-            int index = i + size * i;
-            matrix[index] = MAGMA_C_ADD(matrix[index],  MAGMA_C_MAKE(max, max));
-        }
-        print(matrix, size);
-//
-//        print(matrix, size);
-        
-        
-
+#ifdef RELEASE
+        calculate(size);
+#endif
     }
+}
+
+int main(int argc, const char * argv[]) {
+    start();
+    
     return 0;
 }
