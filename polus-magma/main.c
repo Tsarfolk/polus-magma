@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "flops.h"
 #include "magma_v2.h"
 #include "magma_lapack.h"
 
@@ -43,19 +44,21 @@ int main(int argc, const char * argv[]) {
         magmaFloatComplex *matrix;
         magma_cmalloc_pinned(&matrix, mSize);
 
-        print(matrix, size);
         magma_int_t ione     = 1;
         magma_int_t ISEED[4] = {0 ,0 ,0 ,1};
         lapackf77_clarnv( &ione, ISEED, &size, matrix );
         
-        float m = 0;
+        float max = 0;
         for (int i = 0; i < size; ++i){
-            m = MAGMA_C_ABS(matrix[i]) > m ? MAGMA_C_ABS(matrix[i]) : m;
+            if MAGMA_C_ABS(matrix[i]) > max {
+                max = MAGMA_C_ABS(matrix[i]);
+            }
         }
-        printf("%d", m);
-        print(matrix, size);
-        for(int i = 0; i < size; ++i){
-            matrix[i + size * i] = MAGMA_C_ADD(matrix[i + size * i],  MAGMA_C_MAKE(m, m));
+        printf("%d", max);
+        
+        for(int i = 0; i < size; ++i) {
+            int index = i + size * i
+            matrix[index] = MAGMA_C_ADD(matrix[index],  MAGMA_C_MAKE(max, max));
         }
         print(matrix, size);
 //
