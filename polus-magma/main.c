@@ -16,10 +16,10 @@ int iterationCount = INT_MAX;
 #include "magma_lapack.h"
 #endif
 
-float randDenominator = 0;
+double randDenominator = 0;
 
-float randNumber() {
-    return (float)rand() / randDenominator;
+double randNumber() {
+    return (double)rand() / randDenominator;
 }
 
 #ifdef RELEASE
@@ -46,9 +46,9 @@ void calculate(int size) {
     
     lapackf77_zlarnv(&ione, ISEED, &size, matrix);
     
-    float max = 0;
+    double max = 0;
     for (int i = 0; i < size; i++) {
-        float number = randNumber();
+        double number = randNumber();
         matrix[i + size * i] = number;
         if (number > max) {
             max = number;
