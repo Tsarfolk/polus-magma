@@ -5,4 +5,4 @@ push:
 run:
 	./a.out
 clear:
-	rm -f a.out core.*
+	rm -f a.out core.* *.log

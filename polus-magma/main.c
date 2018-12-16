@@ -57,6 +57,7 @@ void calculate(int size) {
         double imaginary = randNumber();
         magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
         matrix[index] = number;
+        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
         double distance = MAGMA_Z_ABS(number);
         if (distance > max) {
             max = distance;
@@ -71,7 +72,20 @@ void calculate(int size) {
     }
     
     print(matrix, size);
-    magma_free_pinned(matrix);
+    
+//    magmaDoubleComplex *lWork, *tau;
+//    magma_int_t nb = magma_get_zgeqrf_nb(size, size);
+//    magma_int_t lWorkSize = nb * size;
+//    magma_cmalloc_pinned(&lWork, lWorkSize);
+//    magma_cmalloc_pinned(&tau, size);
+//
+//    magma_int_t info;
+//    magma_int_t result = magma_zgeqrf(size, size, matrix, size, tau, lWork, lWorkSize, &info);
+//    print(matrix, size);
+//    printf("Info is %d", info);
+//    printf("Result is %d", info);
+//
+//    magma_free_pinned(matrix);
 }
 //#endif
 
@@ -113,7 +127,7 @@ void start() {
 
 int main(int argc, const char * argv[]) {
     start();
-    //    printf("1");
+    debug_print();
     
     return 0;
 }
