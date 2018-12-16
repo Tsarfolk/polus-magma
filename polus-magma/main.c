@@ -57,6 +57,7 @@ int main(int argc, const char * argv[]) {
         for(int i = 0; i < size; ++i){
             matrix[i + size * i] = MAGMA_C_ADD(matrix[i + size * i],  MAGMA_C_MAKE(m, m));
         }
+        print(matrix, size);
 //
 //        print(matrix, size);
         
