@@ -48,13 +48,15 @@ int main(int argc, const char * argv[]) {
 //        magma_int_t ISEED[4] = {0 ,0 ,0 ,1};
 //        lapackf77_clarnv( &ione, ISEED, &size, matrix );
         
-//        float m = 0;
-//        for (int i = 0; i < size; ++i){
-//            m = MAGMA_C_ABS(matrix[i]) > m ? MAGMA_C_ABS(matrix[i]) : m;
-//        }
-//        for(int i = 0; i < size; ++i){
-//            matrix[i + size * i] = MAGMA_C_ADD(matrix[i + size * i],  MAGMA_C_MAKE(m, m));
-//        }
+        float m = 0;
+        for (int i = 0; i < size; ++i){
+            m = MAGMA_C_ABS(matrix[i]) > m ? MAGMA_C_ABS(matrix[i]) : m;
+        }
+        printf("%d", m);
+        print(matrix, size);
+        for(int i = 0; i < size; ++i){
+            matrix[i + size * i] = MAGMA_C_ADD(matrix[i + size * i],  MAGMA_C_MAKE(m, m));
+        }
 //
 //        print(matrix, size);
         
