@@ -39,6 +39,7 @@ void debug_print() {
 void calculate(int size) {
     magma_int_t mSize = size * size;
     
+    printf("Will init matrix of size %d", mSize);
     magmaDoubleComplex *matrix;
     magma_zmalloc_pinned(&matrix, mSize);
     
@@ -47,31 +48,31 @@ void calculate(int size) {
 //
 //    lapackf77_zlarnv(&idist, ISEED, &mSize, matrix);
     
-    printf("Allocated with elements count %d", mSize);
-    print(matrix, size);
-    
-    double max = 0;
-    for (int i = 0; i < size * size; i++) {
-        int index = i;
-        double real = randNumber();
-        double imaginary = randNumber();
-        magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
-        matrix[index] = number;
-        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
-        double distance = MAGMA_Z_ABS(number);
-        if (distance > max) {
-            max = distance;
-        }
-    }
-    
-    printf("%d", max);
-    
-    for(int i = 0; i < size; ++i) {
-        int index = i + size * i;
-        matrix[index] = MAGMA_Z_ADD(matrix[index], MAGMA_Z_MAKE(max, max));
-    }
-    
-    print(matrix, size);
+//    printf("Allocated with elements count %d", mSize);
+//    print(matrix, size);
+//
+//    double max = 0;
+//    for (int i = 0; i < size * size; i++) {
+//        int index = i;
+//        double real = randNumber();
+//        double imaginary = randNumber();
+//        magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
+//        matrix[index] = number;
+//        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
+//        double distance = MAGMA_Z_ABS(number);
+//        if (distance > max) {
+//            max = distance;
+//        }
+//    }
+//
+//    printf("%d", max);
+//
+//    for(int i = 0; i < size; ++i) {
+//        int index = i + size * i;
+//        matrix[index] = MAGMA_Z_ADD(matrix[index], MAGMA_Z_MAKE(max, max));
+//    }
+//
+//    print(matrix, size);
     
 //    magmaDoubleComplex *lWork, *tau;
 //    magma_int_t nb = magma_get_zgeqrf_nb(size, size);
@@ -124,7 +125,7 @@ void start() {
         int size = sizes[i];
         printf("Count is: %d\n", count);
         printf("Size is: %d\n", size);
-//        calculate(size);
+        calculate(size);
         //#endif
     }
 }
