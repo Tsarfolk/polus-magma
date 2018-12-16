@@ -44,7 +44,7 @@ void calculate(int size) {
     magma_int_t idist = 1;
     magma_int_t ISEED[4] = {0, 0, 0, 1};
     
-    lapackf77_zlarnv(&idist, ISEED, &size, matrix);
+    lapackf77_zlarnv(&idist, ISEED, &mSize, matrix);
     
     print(matrix, size);
     
