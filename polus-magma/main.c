@@ -40,6 +40,7 @@ void calculate(int size) {
     magma_int_t mSize = size * size;
     
     magmaDoubleComplex *matrix;
+    printf("Matrix allocation with size %d", size);
     magma_zmalloc_pinned(&matrix, mSize);
     
     print(matrix, size);
