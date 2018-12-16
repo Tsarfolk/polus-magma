@@ -98,6 +98,7 @@ void start() {
 //#ifdef RELEASE
         int size = sizes[i];
         printf("Count is: %d\n", count);
+        printf("Size is: %d\n", size);
         calculate(size);
 //#endif
     }
