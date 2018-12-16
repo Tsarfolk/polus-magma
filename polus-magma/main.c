@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "flops.h"
 #include "magma_v2.h"
 #include "magma_lapack.h"
 
