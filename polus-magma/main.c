@@ -93,17 +93,19 @@ void start() {
     }
     
     count = iterationCount < count ? iterationCount : count;
+    printf("Iterator count is %d\n", count);
     for (int i = 0; i < count; i++) {
 //#ifdef RELEASE
         int size = sizes[i];
+        printf("Count is: %d\n", count);
         calculate(size);
 //#endif
     }
 }
 
 int main(int argc, const char * argv[]) {
-//    start();
-    printf("1");
+    start();
+//    printf("1");
     
     return 0;
 }
