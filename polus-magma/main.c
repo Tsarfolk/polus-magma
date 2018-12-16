@@ -44,7 +44,7 @@ void calculate(int size) {
     magma_int_t idist = 1;
     magma_int_t ISEED[4] = {0, 0, 0, 1};
     
-    lapackf77_zlarnv(&ione, ISEED, &size, matrix);
+    lapackf77_zlarnv(&idist, ISEED, &size, matrix);
     
     print(matrix, size);
     
@@ -56,14 +56,14 @@ void calculate(int size) {
 //            max = number;
 //        }
 //    }
-//    
+//
 //    printf("%d", max);
-//    
+//
 //    for(int i = 0; i < size; ++i) {
 //        int index = i + size * i;
 //        matrix[index] = MAGMA_Z_ADD(matrix[index],  MAGMA_Z_MAKE(max, max));
 //    }
-//    
+//
 //    print(matrix, size);
 }
 #endif
