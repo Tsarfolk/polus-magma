@@ -102,7 +102,8 @@ void start() {
 }
 
 int main(int argc, const char * argv[]) {
-    start();
+//    start();
+    printf("1");
     
     return 0;
 }
