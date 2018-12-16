@@ -15,7 +15,7 @@ int iterationCount = 1;
 #include "magma_v2.h"
 #include "magma_lapack.h"
 #include "cuComplex.h"
-//#endif
+#endif
 
 double randDenominator = 0;
 
