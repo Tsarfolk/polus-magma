@@ -58,17 +58,17 @@ void calculate(int size) {
     // -------- matrix population --------
     printf("Allocated with elements count %d\n", mSize);
     double max = 0;
-    for (int i = 0; i < size * size; i++) {
+    for (int i = 0; i < mSize; i++) {
         int index = i;
         double real = randNumber();
         double imaginary = randNumber();
-        magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
-        matrix[index] = number;
-//        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
-        double distance = MAGMA_Z_ABS(number);
-        if (distance > max) {
-            max = distance;
-        }
+//        magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
+//        matrix[index] = number;
+////        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
+//        double distance = MAGMA_Z_ABS(number);
+//        if (distance > max) {
+//            max = distance;
+//        }
     }
     
     printf("max is %d", max);
@@ -81,11 +81,11 @@ void calculate(int size) {
 //
 //    print(matrix, zSize);
 //    // -------- actual work --------
-//    
+//
 //    magmaDoubleComplex *lWork, *tau;
 //    magma_int_t zgeqrfNb = magma_get_zgeqrf_nb(zSize, zSize);
 //    magma_int_t lWorkSize = zgeqrfNb * zSize;
-//    
+//
 //    // -------- alloc --------
 //    result = magma_malloc_pinned( (void**) &lWork, lWorkSize * sizeof(magmaDoubleComplex));
 //    if (result) {
@@ -97,22 +97,22 @@ void calculate(int size) {
 //        printf("Error on allocation, result %d", result);
 //        return;
 //    }
-//    
+//
 //    // -------- qr factorization --------
 //    magma_int_t info;
 //    result = magma_zgeqrf(zSize, zSize, matrix, zSize, tau, lWork, lWorkSize, &info);
-//    
+//
 //    if (result || info) {
 //        printf("Error on qr factorization %d", result);
 //        printf("Info is %d", info);
 //        printf("Result is %d", info);
 //        return;
 //    }
-//    
+//
 //    // -------- orthonormal columns `matrix` --------
 //    print(matrix, zSize);
 //    result = magma_zungqr2(zSize, zSize, zSize, matrix, zSize, tau, &info);
-//    
+//
 //    if (result || info) {
 //        printf("Error on qr factorization %d", result);
 //        printf("Info is %d", info);
@@ -120,11 +120,11 @@ void calculate(int size) {
 //        return;
 //    }
 //    print(matrix, zSize);
-//    
+//
 //    // -------- dealloc --------
 //    magma_free_pinned(lWork);
 //    magma_free_pinned(tau);
-//    
+//
 //    // -------- alloc --------
 //    magmaDoubleComplex *eigMatrix, *A, *eig;
 //    result = magma_malloc_pinned( (void**) &eigMatrix, zSize * sizeof(magmaDoubleComplex));
@@ -142,7 +142,7 @@ void calculate(int size) {
 //        printf("Error on allocation, result %d", result);
 //        return;
 //    }
-//    
+//
 //    for(int i = 0; i < mSize; i++){
 //        eigMatrix[i] = MAGMA_Z_ZERO;
 //        A[i] = MAGMA_Z_ZERO;
@@ -154,15 +154,15 @@ void calculate(int size) {
 //        eig[i] = complexNumber;
 //        eigMatrix[i + zSize * i] = complexNumber;
 //    }
-//    
+//
 //    magma_device_t device = 0;
 //    magma_getdevice(&device);
 //    magma_queue_t queue = NULL;
 //    magma_queue_create(device, &queue);
-//    
+//
 //    magmablas_zgemm(MagmaNoTrans, MagmaNoTrans, zSize, zSize, zSize, MAGMA_Z_ONE, eigMatrix, zSize, matrix, zSize, MAGMA_Z_ZERO, A, zSize, queue);
 //    magmablas_zgemm(MagmaConjTrans, MagmaNoTrans, zSize, zSize, zSize, MAGMA_Z_ONE, matrix, zSize, A, zSize, MAGMA_Z_ZERO, A, zSize, queue);
-//    
+//
 //    magma_int_t workSize = (1 + 3 * zgeqrfNb) * zSize;
 //    magmaDoubleComplex *wMatr = NULL, *workMatr, *VL, *VR;
 //    result = magma_malloc_pinned( (void**) &wMatr, zSize * sizeof(magmaDoubleComplex));
@@ -175,18 +175,18 @@ void calculate(int size) {
 //        printf("Error on allocation, result %d", result);
 //        return;
 //    }
-//    
+//
 //    double *realWork;
 //    result = magma_malloc_pinned( (void**) &realWork, 2 * zSize * sizeof(magmaDoubleComplex));
 //    if (result) {
 //        printf("Error on allocation, result %d", result);
 //        return;
 //    }
-//    
+//
 //    double gpuTimeStart = magma_sync_wtime (NULL);
 //    result = magma_zgeev_m(MagmaNoVec, MagmaNoVec, zSize, A, zSize, wMatr, VL, zSize, VR, zSize, workMatr, workSize, realWork, &info);
 //    double gpuTimeTotal = magma_sync_wtime (NULL) - gpuTimeStart;
-//    
+//
 //    for(int i = 0; i < zSize; ++i){
 //        magmaDoubleComplex lambda = wMatr[i];
 //        int j = 0;
@@ -197,15 +197,15 @@ void calculate(int size) {
 //            eig[j] = MAGMA_Z_ZERO;
 //        }
 //    }
-//    
+//
 //    double zblas = magma_cblas_dznrm2(zSize, eig, 1);
-//    
+//
 //    printf("Matrix dimension %d\n", zSize);
 //    printf("GPU time: %f\n", gpuTimeTotal);
 //    printf("Is correct: %s\n", fabs(zblas) < 0.0001 ? "yes": "no");
 //    printf("Norma: %f\n", zblas);
 //    printf("------------------------------------------------\n");
-//    
+//
 //    magma_free_pinned(VL);
 //    magma_free_pinned(VR);
 //    magma_free_pinned(wMatr);
