@@ -51,8 +51,9 @@ void calculate(int size) {
         double imaginary = randNumber();
         magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
         matrix[index] = number;
-        if (MAGMA_Z_ABS(number) > max) {
-            max = number;
+        double distance = MAGMA_Z_ABS(number)
+        if (distance > max) {
+            max = distance;
         }
     }
 
@@ -93,9 +94,8 @@ void start() {
     
     count = iterationCount < count ? iterationCount : count;
     for (int i = 0; i < count; i++) {
-        int size = sizes[i];
-        
 #ifdef RELEASE
+        int size = sizes[i];
         calculate(size);
 #endif
     }
