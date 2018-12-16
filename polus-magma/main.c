@@ -69,7 +69,7 @@ void calculate(int size) {
         double real = randNumber();
         double imaginary = randNumber();
         magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
-        matrix[index] = number;
+//        matrix[index] = number;
 //        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
         double distance = MAGMA_Z_ABS(number);
         if (distance > max) {
