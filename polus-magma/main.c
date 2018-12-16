@@ -14,6 +14,7 @@ int iterationCount = INT_MAX;
 #ifdef RELEASE
 #include "magma_v2.h"
 #include "magma_lapack.h"
+#include "cuComplex.h"
 #endif
 
 double randDenominator = 0;
@@ -40,11 +41,18 @@ void calculate(int size) {
     
     magmaDoubleComplex *matrix;
     magma_zmalloc_pinned(&matrix, mSize);
+    double a = 1, b = 1;
+    cuCfma(a, b);
+    printf("1");
+    magmaDoubleComplex tmp = cuCfma(a, b);
+    printf("2");
     
-    magma_int_t idist = 1;
-    magma_int_t ISEED[4] = {0, 0, 0, 1};
+//    magma_int_t idist = 1;
+//    magma_int_t ISEED[4] = {0, 0, 0, 1};
+//
+//    lapackf77_zlarnv(&idist, ISEED, &mSize, matrix);
     
-    lapackf77_zlarnv(&idist, ISEED, &mSize, matrix);
+    
     
     print(matrix, size);
     
