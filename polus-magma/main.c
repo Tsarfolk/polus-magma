@@ -95,43 +95,42 @@ void start() {
     init();
     printf("Did init");
     //#endif
-    srand((unsigned int)time(NULL));
-    randDenominator = 1000;
-    
-    printf("Will generate");
-    int sizes[100];
-    int i = 0;
-    int currentSize = 1;
-    int count = 0;
-    int targetSize = 10e4;
-    while (1) {
-        int firstSize = currentSize * 5;
-        int secondSize = firstSize * 2;
-        sizes[i++] = firstSize;
-        sizes[i++] = secondSize;
-        currentSize = secondSize;
-        count += 2;
-        if (secondSize > targetSize) {
-            break;
-        }
-        printf("current size: %d", currentSize);
-    }
-    
-    count = iterationCount < count ? iterationCount : count;
-    printf("Iterator count is %d\n", count);
-    for (int i = 0; i < count; i++) {
-        //#ifdef RELEASE
-        int size = sizes[i];
-        printf("Count is: %d\n", count);
-        printf("Size is: %d\n", size);
-        calculate(size);
-        //#endif
-    }
+//    srand((unsigned int)time(NULL));
+//    randDenominator = 1000;
+//    
+//    printf("Will generate");
+//    int sizes[100];
+//    int i = 0;
+//    int currentSize = 1;
+//    int count = 0;
+//    int targetSize = 10e4;
+//    while (1) {
+//        int firstSize = currentSize * 5;
+//        int secondSize = firstSize * 2;
+//        sizes[i++] = firstSize;
+//        sizes[i++] = secondSize;
+//        currentSize = secondSize;
+//        count += 2;
+//        if (secondSize > targetSize) {
+//            break;
+//        }
+//        printf("current size: %d", currentSize);
+//    }
+//    
+//    count = iterationCount < count ? iterationCount : count;
+//    printf("Iterator count is %d\n", count);
+//    for (int i = 0; i < count; i++) {
+//        //#ifdef RELEASE
+//        int size = sizes[i];
+//        printf("Count is: %d\n", count);
+//        printf("Size is: %d\n", size);
+//        calculate(size);
+//        //#endif
+//    }
 }
 
 int main(int argc, const char * argv[]) {
-    init();
-//    start();
+    start();
 //    debug_print();
     
     return 0;
