@@ -223,7 +223,7 @@ void start() {
     printf("Did init\n");
     //#endif
     srand((unsigned int)time(NULL));
-    randDenominator = 1000;
+    randDenominator = 100000;
 
     printf("Will generate\n");
     int sizes[100];
