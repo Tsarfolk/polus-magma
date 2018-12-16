@@ -39,7 +39,7 @@ void calculate(int size) {
     
     printf("Will init matrix of size %d\n", mSize);
     magmaDoubleComplex *matrix;
-    result = magma_malloc_pinned( (void**) &matrix, size * sizeof(magmaFloatComplex));
+    magma_int_t result = magma_malloc_pinned( (void**) &matrix, size * sizeof(magmaFloatComplex));
     if (result) {
         printf("Error on allocation, result %d", result);
         return
