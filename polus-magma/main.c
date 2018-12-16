@@ -42,9 +42,9 @@ void calculate(int size) {
     magmaDoubleComplex *matrix;
     magma_zmalloc_pinned(&matrix, mSize);
     double a = 1, b = 1;
-    cuCfma(a, b);
+    make_cuDoubleComplex(a, b);
     printf("1");
-    magmaDoubleComplex tmp = cuCfma(a, b);
+    magmaDoubleComplex tmp = make_cuDoubleComplex(a, b);
     printf("2");
     
 //    magma_int_t idist = 1;
