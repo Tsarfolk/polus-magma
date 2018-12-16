@@ -51,7 +51,7 @@ void calculate(int size) {
         double imaginary = randNumber();
         magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
         matrix[index] = number;
-        double distance = MAGMA_Z_ABS(number)
+        double distance = MAGMA_Z_ABS(number);
         if (distance > max) {
             max = distance;
         }
