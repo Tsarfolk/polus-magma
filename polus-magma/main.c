@@ -198,7 +198,7 @@ void calculate(int size) {
         }
     }
     
-    double zblas = magma_zblas_scnrm2(zSize, eig, 1);
+    double zblas = magma_cblas_dznrm2(zSize, eig, 1);
     
     printf("MatrixSize: %d x %d\n", zSize, zSize);
     printf("Time: %f\n", gpuTimeTotal);
