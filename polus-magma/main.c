@@ -42,22 +42,21 @@ void calculate(int size) {
     magmaDoubleComplex *matrix;
     magma_zmalloc_pinned(&matrix, mSize);
     
-    magma_int_t idist = 1;
-    magma_int_t ISEED[4] = {0, 0, 0, 1};
-
-    lapackf77_zlarnv(&idist, ISEED, &mSize, matrix);
+//    magma_int_t idist = 1;
+//    magma_int_t ISEED[4] = {0, 0, 0, 1};
+//
+//    lapackf77_zlarnv(&idist, ISEED, &mSize, matrix);
     
     printf("Allocated with elements count %d", mSize);
     print(matrix, size);
     
     double max = 0;
-    for (int i = 0; i < size; i++) {
-        int index = i + size * i;
-//        double real = randNumber();
-//        double imaginary = randNumber();
-//        magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
-//        matrix[index] = number;
-        magmaDoubleComplex number = matrix[index];
+    for (int i = 0; i < size * size; i++) {
+        int index = i;
+        double real = randNumber();
+        double imaginary = randNumber();
+        magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
+        matrix[index] = number;
         double distance = MAGMA_Z_ABS(number);
         if (distance > max) {
             max = distance;
@@ -81,7 +80,7 @@ void start() {
     init();
     //#endif
     srand((unsigned int)time(NULL));
-    randDenominator = RAND_MAX / 10000;
+    randDenominator = RAND_MAX / 1000;
     
     int sizes[100];
     int i = 0;
