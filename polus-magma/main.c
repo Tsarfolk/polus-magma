@@ -20,6 +20,7 @@ int iterationCount = INT_MAX;
 double randDenominator = 0;
 
 double randNumber() {
+    return 1;
     double randNum = (double)rand();
     if (randNum > randDenominator) {
         return randNum / randDenominator;
