@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-//#include "magma_v2.h"
-//#include "magma_lapack.h"
+#include "magma_v2.h"
+#include "magma_lapack.h"
 
 void init() {
     magma_init();
@@ -55,7 +55,7 @@ int main(int argc, const char * argv[]) {
 //        for(int i = 0; i < size; ++i){
 //            matrix[i + size * i] = MAGMA_C_ADD(matrix[i + size * i],  MAGMA_C_MAKE(m, m));
 //        }
-//        
+//
 //        print(matrix, size);
         
         
