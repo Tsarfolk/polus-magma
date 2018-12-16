@@ -91,11 +91,14 @@ void calculate(int size) {
 
 void start() {
     //#ifdef RELEASE
+    printf("Will init");
     init();
+    printf("Did init");
     //#endif
     srand((unsigned int)time(NULL));
     randDenominator = RAND_MAX / 1000;
     
+    printf("Will generate");
     int sizes[100];
     int i = 0;
     int currentSize = 1;
@@ -111,6 +114,7 @@ void start() {
         if (secondSize > targetSize) {
             break;
         }
+        printf("current size: %d", currentSize);
     }
     
     count = iterationCount < count ? iterationCount : count;
@@ -126,7 +130,7 @@ void start() {
 }
 
 int main(int argc, const char * argv[]) {
-//    start();
+    start();
     debug_print();
     
     return 0;
