@@ -28,16 +28,13 @@ void init() {
     magma_init();
 }
 
-void print(const magmaDoubleComplex *A, int size) {
-    magma_zprint(size, size, A, size);
-}
-
 void debug_print() {
     printf("Hello world!");
 }
 
 void calculate(int size) {
-    magma_int_t mSize = size * size;
+    magma_int_t zSize = zSize;
+    magma_int_t mSize = zSize * zSize;
     
     printf("Will init matrix of size %d", mSize);
     magmaDoubleComplex *matrix;
@@ -49,7 +46,7 @@ void calculate(int size) {
 //    lapackf77_zlarnv(&idist, ISEED, &mSize, matrix);
     
     printf("Allocated with elements count %d", mSize);
-    print(matrix, size);
+    magma_zprint(zSize, zSize, A, zSize);
 //
 //    double max = 0;
 //    for (int i = 0; i < size * size; i++) {
