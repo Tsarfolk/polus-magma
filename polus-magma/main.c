@@ -33,7 +33,7 @@ void debug_print() {
 }
 
 void calculate(int size) {
-    magma_int_t zSize = zSize;
+    magma_int_t zSize = size;
     printf("zSize is\n", zSize);
     magma_int_t mSize = zSize * zSize;
     
