@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		7DCD396821C668F400FF25FB /* polus-magma */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "polus-magma"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DCD396B21C668F400FF25FB /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		7DE2C65321C6702900B8994E /* make.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = make.sh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				7DCD396B21C668F400FF25FB /* main.c */,
+				7DE2C65321C6702900B8994E /* make.sh */,
 			);
 			path = "polus-magma";
 			sourceTree = "<group>";
