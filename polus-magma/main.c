@@ -47,7 +47,7 @@ void calculate(int size) {
 //    lapackf77_zlarnv(&idist, ISEED, &mSize, matrix);
     
     printf("Allocated with elements count %d\n", mSize);
-    magma_zprint(zSize, zSize, matrix, zSize);
+//    magma_zprint(zSize, zSize, matrix, zSize);
 //
 //    double max = 0;
 //    for (int i = 0; i < size * size; i++) {
