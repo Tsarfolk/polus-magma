@@ -71,9 +71,12 @@ void calculate(int size) {
 //        matrix[i] = number;
 //        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
         double distance = MAGMA_Z_ABS(number);
-        printf("%d: %lf", i, distance);
         if (distance > max) {
             max = distance;
+        }
+        
+        if (max == 1719614413) {
+            printf("%lf wtf %d", distance, i);
         }
     }
     
