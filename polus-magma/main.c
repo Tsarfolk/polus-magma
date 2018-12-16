@@ -34,9 +34,10 @@ void debug_print() {
 
 void calculate(int size) {
     magma_int_t zSize = zSize;
+    printf("zSize is\n", zSize);
     magma_int_t mSize = zSize * zSize;
     
-    printf("Will init matrix of size %d", mSize);
+    printf("Will init matrix of size %d\n", mSize);
     magmaDoubleComplex *matrix;
     magma_zmalloc_pinned(&matrix, mSize);
     
@@ -45,7 +46,7 @@ void calculate(int size) {
 //
 //    lapackf77_zlarnv(&idist, ISEED, &mSize, matrix);
     
-    printf("Allocated with elements count %d", mSize);
+    printf("Allocated with elements count %d\n", mSize);
     magma_zprint(zSize, zSize, matrix, zSize);
 //
 //    double max = 0;
