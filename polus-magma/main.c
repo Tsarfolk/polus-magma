@@ -89,45 +89,45 @@ void calculate(int size) {
     magmaDoubleComplex *lWork, *tau;
     magma_int_t zgeqrfNb = magma_get_zgeqrf_nb(zSize, zSize);
     magma_int_t lWorkSize = zgeqrfNb * zSize;
-//
-//    // -------- alloc --------
-//    result = magma_malloc_pinned( (void**) &lWork, lWorkSize * sizeof(magmaDoubleComplex));
-//    if (result) {
-//        printf("Error on allocation, result %d", result);
-//        return;
-//    }
-//    result = magma_malloc_pinned( (void**) &tau, zSize * sizeof(magmaDoubleComplex));
-//    if (result) {
-//        printf("Error on allocation, result %d", result);
-//        return;
-//    }
-//
-//    // -------- qr factorization --------
-//    magma_int_t info;
-//    result = magma_zgeqrf(zSize, zSize, matrix, zSize, tau, lWork, lWorkSize, &info);
-//
-//    if (result || info) {
-//        printf("Error on qr factorization %d", result);
-//        printf("Info is %d", info);
-//        printf("Result is %d", info);
-//        return;
-//    }
-//
-//    // -------- orthonormal columns `matrix` --------
-//    print(matrix, zSize);
-//    result = magma_zungqr2(zSize, zSize, zSize, matrix, zSize, tau, &info);
-//
-//    if (result || info) {
-//        printf("Error on qr factorization %d", result);
-//        printf("Info is %d", info);
-//        printf("Result is %d", info);
-//        return;
-//    }
-//    print(matrix, zSize);
-//
-//    // -------- dealloc --------
-//    magma_free_pinned(lWork);
-//    magma_free_pinned(tau);
+
+    // -------- alloc --------
+    result = magma_malloc_pinned( (void**) &lWork, lWorkSize * sizeof(magmaDoubleComplex));
+    if (result) {
+        printf("Error on allocation, result %d", result);
+        return;
+    }
+    result = magma_malloc_pinned( (void**) &tau, zSize * sizeof(magmaDoubleComplex));
+    if (result) {
+        printf("Error on allocation, result %d", result);
+        return;
+    }
+
+    // -------- qr factorization --------
+    magma_int_t info;
+    result = magma_zgeqrf(zSize, zSize, matrix, zSize, tau, lWork, lWorkSize, &info);
+
+    if (result || info) {
+        printf("Error on qr factorization %d", result);
+        printf("Info is %d", info);
+        printf("Result is %d", info);
+        return;
+    }
+
+    // -------- orthonormal columns `matrix` --------
+    print(matrix, zSize);
+    result = magma_zungqr2(zSize, zSize, zSize, matrix, zSize, tau, &info);
+
+    if (result || info) {
+        printf("Error on qr factorization %d", result);
+        printf("Info is %d", info);
+        printf("Result is %d", info);
+        return;
+    }
+    print(matrix, zSize);
+
+    // -------- dealloc --------
+    magma_free_pinned(lWork);
+    magma_free_pinned(tau);
 //
 //    // -------- alloc --------
 //    magmaDoubleComplex *eigMatrix, *A, *eig;
