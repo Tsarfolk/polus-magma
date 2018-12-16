@@ -4,7 +4,7 @@
 #include <time.h>
 #include <limits.h>
 
-//#define RELEASE
+#define RELEASE
 //#ifndef RELEASE
 int iterationCount = 1;
 //#else
