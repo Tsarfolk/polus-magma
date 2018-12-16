@@ -64,6 +64,7 @@ void calculate(int size) {
     // -------- matrix population --------
     printf("Allocated with elements count %d\n", mSize);
     double maxValue = 0;
+    printf("max is %d", maxValue);
     for (int i = 0; i < mSize; i++) {
         double real = randNumber();
         double imaginary = randNumber();
@@ -72,7 +73,9 @@ void calculate(int size) {
 //        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
         double distance = MAGMA_Z_ABS(number);
         if (distance > maxValue) {
+            printf("Max found, it's %lf", distance);
             maxValue = distance;
+            printf("Max found, it's %lf", maxValue);
         }
         
         if (maxValue == 1719614413) {
