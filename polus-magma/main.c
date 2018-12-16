@@ -48,8 +48,8 @@ void calculate(int size) {
 //
 //    lapackf77_zlarnv(&idist, ISEED, &mSize, matrix);
     
-//    printf("Allocated with elements count %d", mSize);
-//    print(matrix, size);
+    printf("Allocated with elements count %d", mSize);
+    print(matrix, size);
 //
 //    double max = 0;
 //    for (int i = 0; i < size * size; i++) {
