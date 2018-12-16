@@ -64,7 +64,7 @@ void calculate(int size) {
         double imaginary = randNumber();
         magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
         matrix[index] = number;
-        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
+//        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
         double distance = MAGMA_Z_ABS(number);
         if (distance > max) {
             max = distance;
@@ -200,7 +200,7 @@ void calculate(int size) {
     
     double zblas = magma_cblas_dznrm2(zSize, eig, 1);
     
-    printf("Matrix dimension\n", zSize, zSize);
+    printf("Matrix dimension %d\n", zSize);
     printf("GPU time: %f\n", gpuTimeTotal);
     printf("Is correct: %s\n", fabs(zblas) < 0.0001 ? "yes": "no");
     printf("Norma: %f\n", zblas);
