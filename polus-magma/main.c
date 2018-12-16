@@ -47,9 +47,9 @@ int main(int argc, const char * argv[]) {
         magma_int_t ISEED[4] = {0 ,0 ,0 ,1};
         lapackf77_clarnv( &ione, ISEED, &size, matrix );
         
-        float max = 0;
+        double max = 0;
         for (int i = 0; i < size; ++i){
-            if MAGMA_C_ABS(matrix[i]) > max {
+            if (MAGMA_C_ABS(matrix[i]) > max) {
                 max = MAGMA_C_ABS(matrix[i]);
             }
         }
