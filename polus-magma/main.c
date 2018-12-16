@@ -136,12 +136,12 @@ void calculate(int size) {
         printf("Error on allocation, result %d", result);
         return;
     }
-    result = magma_malloc_pinned( (void**) &A, zSize * sizeof(magmaDoubleComplex));
+    result = magma_malloc_pinned( (void**) &A, mSize * sizeof(magmaDoubleComplex));
     if (result) {
         printf("Error on allocation, result %d", result);
         return;
     }
-    result = magma_malloc_pinned( (void**) &eig, mSize * sizeof(magmaDoubleComplex));
+    result = magma_malloc_pinned( (void**) &eig, zSize * sizeof(magmaDoubleComplex));
     if (result) {
         printf("Error on allocation, result %d", result);
         return;
