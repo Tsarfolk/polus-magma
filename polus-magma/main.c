@@ -130,8 +130,8 @@ void start() {
 }
 
 int main(int argc, const char * argv[]) {
-    start();
-    debug_print();
+//    start();
+//    debug_print();
     
     return 0;
 }
