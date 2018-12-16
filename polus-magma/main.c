@@ -6,7 +6,7 @@
 
 #define RELEASE
 #ifndef RELEASE
-int iterationCount = 100;
+int iterationCount = 8;
 #else
 int iterationCount = INT_MAX;
 #endif
@@ -227,6 +227,9 @@ void start() {
     //#endif
     srand((unsigned int)time(NULL));
     randDenominator = 10000;
+    
+    calculate(10000);
+    return
 
     printf("Will generate\n");
     int sizes[100];
