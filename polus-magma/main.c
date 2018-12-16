@@ -86,9 +86,9 @@ void calculate(int size) {
 //    print(matrix, zSize);
 //    // -------- actual work --------
 //
-//    magmaDoubleComplex *lWork, *tau;
-//    magma_int_t zgeqrfNb = magma_get_zgeqrf_nb(zSize, zSize);
-//    magma_int_t lWorkSize = zgeqrfNb * zSize;
+    magmaDoubleComplex *lWork, *tau;
+    magma_int_t zgeqrfNb = magma_get_zgeqrf_nb(zSize, zSize);
+    magma_int_t lWorkSize = zgeqrfNb * zSize;
 //
 //    // -------- alloc --------
 //    result = magma_malloc_pinned( (void**) &lWork, lWorkSize * sizeof(magmaDoubleComplex));
