@@ -20,7 +20,7 @@ int iterationCount = INT_MAX;
 double randDenominator = 0;
 
 double randNumber() {
-    return (double)rand() / randDenominator;
+    return (double)rand() % randDenominator;
 }
 
 void print(const magmaDoubleComplex* A, magma_int_t size) {
@@ -62,13 +62,13 @@ void calculate(int size) {
         int index = i;
         double real = randNumber();
         double imaginary = randNumber();
-//        magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
-//        matrix[index] = number;
-////        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
-//        double distance = MAGMA_Z_ABS(number);
-//        if (distance > max) {
-//            max = distance;
-//        }
+        magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
+        matrix[index] = number;
+//        printf("real: %lf, imaginary: %lf, index: %d", real, imaginary, index);
+        double distance = MAGMA_Z_ABS(number);
+        if (distance > max) {
+            max = distance;
+        }
     }
     
     printf("max is %d", max);
@@ -224,7 +224,7 @@ void start() {
     
     //#endif
     srand((unsigned int)time(NULL));
-    randDenominator = 100000;
+    randDenominator = 1000;
     calculate(1000);
     return;
 
