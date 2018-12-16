@@ -40,11 +40,12 @@ void calculate(int size) {
     magma_int_t mSize = size * size;
     
     magmaDoubleComplex *matrix;
-    magmaFloatComplex *cmatrix;
-    printf("Matrix allocation with size %d", size);
-    magma_cmalloc_pinned(&cmatrix, mSize);
-    printf("Float matrix allocated with elements count %d", mSize);
     magma_zmalloc_pinned(&matrix, mSize);
+    
+    magma_int_t idist = 1;
+    magma_int_t ISEED[4] = {0, 0, 0, 1};
+
+    lapackf77_zlarnv(&idist, ISEED, &mSize, matrix);
     
     printf("Allocated with elements count %d", mSize);
     print(matrix, size);
@@ -52,31 +53,32 @@ void calculate(int size) {
     double max = 0;
     for (int i = 0; i < size; i++) {
         int index = i + size * i;
-        double real = randNumber();
-        double imaginary = randNumber();
-        magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
-        matrix[index] = number;
+//        double real = randNumber();
+//        double imaginary = randNumber();
+//        magmaDoubleComplex number = make_cuDoubleComplex(real, imaginary);
+//        matrix[index] = number;
         double distance = MAGMA_Z_ABS(number);
         if (distance > max) {
             max = distance;
         }
     }
-
+    
     printf("%d", max);
-
+    
     for(int i = 0; i < size; ++i) {
         int index = i + size * i;
         matrix[index] = MAGMA_Z_ADD(matrix[index], MAGMA_Z_MAKE(max, max));
     }
-
+    
     print(matrix, size);
+    magma_free_pinned(matrix);
 }
 //#endif
 
 void start() {
-//#ifdef RELEASE
+    //#ifdef RELEASE
     init();
-//#endif
+    //#endif
     srand((unsigned int)time(NULL));
     randDenominator = RAND_MAX / 10000;
     
@@ -100,18 +102,18 @@ void start() {
     count = iterationCount < count ? iterationCount : count;
     printf("Iterator count is %d\n", count);
     for (int i = 0; i < count; i++) {
-//#ifdef RELEASE
+        //#ifdef RELEASE
         int size = sizes[i];
         printf("Count is: %d\n", count);
         printf("Size is: %d\n", size);
         calculate(size);
-//#endif
+        //#endif
     }
 }
 
 int main(int argc, const char * argv[]) {
     start();
-//    printf("1");
+    //    printf("1");
     
     return 0;
 }
