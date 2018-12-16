@@ -83,7 +83,7 @@ void calculate(int size) {
         }
     }
     
-    printf("max is %d", maxValue);
+    printf("max is %lf", maxValue);
     print(matrix, zSize);
 //
 //    for(int i = 0; i < size; ++i) {
