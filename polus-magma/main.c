@@ -148,11 +148,11 @@ void calculate(int size) {
         A[i] = MAGMA_Z_ZERO;
     }
     for(int i = 0; i < zSize; i++){
-        double real = (rand() % 2000) / 1000.0 - 1;
-        double imaginary = (rand() % 2000) / 1000.0 - 1;
+        double real = (rand() % 1000) / 500.0 - 1;
+        double imaginary = (rand() % 1000) / 500.0 - 1;
         magmaDoubleComplex complexNumber = MAGMA_Z_MAKE(real, imaginary);
-        eig[j] = complexNumber;
-        eig_matrix[j + zSize * j] = complexNumber;
+        eig[i] = complexNumber;
+        eig_matrix[i + zSize * i] = complexNumber;
     }
     
     magma_device_t device = 0;
