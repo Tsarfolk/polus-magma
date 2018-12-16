@@ -43,6 +43,7 @@ void calculate(int size) {
     printf("Matrix allocation with size %d", size);
     magma_zmalloc_pinned(&matrix, mSize);
     
+    printf("Allocated with elements count %d", mSize);
     print(matrix, size);
     
     double max = 0;
