@@ -4,18 +4,18 @@
 #include <time.h>
 #include <limits.h>
 
-#define RELEASE
-#ifndef RELEASE
+//#define RELEASE
+//#ifndef RELEASE
 int iterationCount = 1;
-#else
-int iterationCount = INT_MAX;
-#endif
+//#else
+//int iterationCount = INT_MAX;
+//#endif
 
-#ifdef RELEASE
+//#ifdef RELEASE
 #include "magma_v2.h"
 #include "magma_lapack.h"
 #include "cuComplex.h"
-#endif
+//#endif
 
 double randDenominator = 0;
 
@@ -23,7 +23,7 @@ double randNumber() {
     return (double)rand() / randDenominator;
 }
 
-#ifdef RELEASE
+//#ifdef RELEASE
 void init() {
     magma_init();
 }
@@ -66,12 +66,12 @@ void calculate(int size) {
 
     print(matrix, size);
 }
-#endif
+//#endif
 
 void start() {
-#ifdef RELEASE
+//#ifdef RELEASE
     init();
-#endif
+//#endif
     srand((unsigned int)time(NULL));
     randDenominator = RAND_MAX / 10000;
     
@@ -94,10 +94,10 @@ void start() {
     
     count = iterationCount < count ? iterationCount : count;
     for (int i = 0; i < count; i++) {
-#ifdef RELEASE
+//#ifdef RELEASE
         int size = sizes[i];
         calculate(size);
-#endif
+//#endif
     }
 }
 
