@@ -216,6 +216,7 @@ void calculate(int size) {
     magma_free_pinned(eig);
     magma_free_pinned(eigMatrix);
     magma_free_pinned(A);
+    magma_free_pinned(lWork);
     magma_free_pinned(matrix);
 }
 //#endif
@@ -228,7 +229,7 @@ void start() {
     srand((unsigned int)time(NULL));
     randDenominator = 10000;
     
-    calculate(10000);
+    calculate(5000);
     return;
 
     printf("Will generate\n");
