@@ -11,7 +11,7 @@ int iterationCount = 1;
 //int iterationCount = INT_MAX;
 //#endif
 
-//#ifdef RELEASE
+#ifdef RELEASE
 #include "magma_v2.h"
 #include "magma_lapack.h"
 #include "cuComplex.h"
@@ -163,7 +163,7 @@ void calculate(int size) {
     magmablas_zgemm(MagmaNoTrans, MagmaNoTrans, zSize, zSize, zSize, MAGMA_Z_ONE, eig_matrix, zSize, matrix, zSize, MAGMA_Z_ZERO, A, zSize, queue);
     magmablas_zgemm(MagmaConjTrans, MagmaNoTrans, zSize, zSize, zSize, MAGMA_Z_ONE, matrix, zSize, A, zSize, MAGMA_Z_ZERO, A, zSize, queue);
     
-    magma_int_t workSize = (1 + 3 * zgeqrfNb) * n;
+    magma_int_t workSize = (1 + 3 * zgeqrfNb) * zSize;
     magmaDoubleComplex *w = NULL, *workMatr, *VL, *VR;
     result = magma_malloc_pinned( (void**) &w, zSize * sizeof(magmaDoubleComplex));
     if (result) {
