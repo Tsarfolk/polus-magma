@@ -9,7 +9,7 @@ void init() {
 }
 
 void print(const magmaFloatComplex *A, int size) {
-    magma_cprint(size, size, A, 1);
+    magma_cprint(size, size, A, size);
 }
 
 void debug_print() {
