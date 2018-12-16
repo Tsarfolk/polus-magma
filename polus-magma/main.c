@@ -78,11 +78,11 @@ void calculate(int size) {
     printf("max is %lf", maxValue);
     print(matrix, zSize);
 //
-//    for(int i = 0; i < size; ++i) {
-//        int index = i + size * i;
-//        matrix[index] = MAGMA_Z_ADD(matrix[index], MAGMA_Z_MAKE(maxValue, maxValue));
-//    }
-//
+    for(int i = 0; i < size; ++i) {
+        int index = i + size * i;
+        matrix[index] = MAGMA_Z_ADD(matrix[index], MAGMA_Z_MAKE(maxValue, maxValue));
+    }
+
 //    print(matrix, zSize);
 //    // -------- actual work --------
 //
