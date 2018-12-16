@@ -83,7 +83,8 @@ void calculate(int size) {
     // -------- actual work --------
     
     magmaDoubleComplex *lWork, *tau;
-    magma_int_t lWorkSize = magma_get_zgeqrf_nb(zSize, zSize) * zSize;
+    magma_int_t zgeqrfNb = magma_get_zgeqrf_nb(zSize, zSize);
+    magma_int_t lWorkSize = zgeqrfNb * zSize;
     
     // -------- alloc --------
     result = magma_malloc_pinned( (void**) &lWork, lWorkSize * sizeof(magmaDoubleComplex));
@@ -143,13 +144,13 @@ void calculate(int size) {
     }
     
     for(int i = 0; i < mSize; i++){
-        eig_matrix[i] = MAGMA_C_ZERO;
-        A[i] = MAGMA_C_ZERO;
+        eig_matrix[i] = MAGMA_Z_ZERO;
+        A[i] = MAGMA_Z_ZERO;
     }
     for(int i = 0; i < zSize; i++){
         double real = (rand() % 2000) / 1000.0 - 1;
         double imaginary = (rand() % 2000) / 1000.0 - 1;
-        magmaDoubleComplex complexNumber = MAGMA_C_MAKE(real, imaginary);
+        magmaDoubleComplex complexNumber = MAGMA_Z_MAKE(real, imaginary);
         eig[j] = complexNumber;
         eig_matrix[j + n * j] = complexNumber;
     }
@@ -159,10 +160,10 @@ void calculate(int size) {
     magma_queue_t queue = NULL;
     magma_queue_create(device, &queue);
     
-    magmablas_zgemm(MagmaNoTrans, MagmaNoTrans, zSize, zSize, zSize, MAGMA_C_ONE, eig_matrix, zSize, matrix, zSize, MAGMA_C_ZERO, A, zSize, queue);
-    magmablas_zgemm(MagmaConjTrans, MagmaNoTrans, zSize, zSize, zSize, MAGMA_C_ONE, matrix, zSize, A, zSize, MAGMA_C_ZERO, A, zSize, queue);
+    magmablas_zgemm(MagmaNoTrans, MagmaNoTrans, zSize, zSize, zSize, MAGMA_Z_ONE, eig_matrix, zSize, matrix, zSize, MAGMA_Z_ZERO, A, zSize, queue);
+    magmablas_zgemm(MagmaConjTrans, MagmaNoTrans, zSize, zSize, zSize, MAGMA_Z_ONE, matrix, zSize, A, zSize, MAGMA_Z_ZERO, A, zSize, queue);
     
-    magma_int_t workSize = (1 + 3 * nb) * n;
+    magma_int_t workSize = (1 + 3 * zgeqrfNb) * n;
     magmaDoubleComplex *w = NULL, *workMatr, *VL, *VR;
     result = magma_malloc_pinned( (void**) &w, zSize * sizeof(magmaDoubleComplex));
     if (result) {
@@ -183,7 +184,7 @@ void calculate(int size) {
     }
     
     double gpuTimeStart = magma_sync_wtime (NULL);
-    res = magma_zgeev_m(MagmaNoVec, MagmaNoVec, zSize, A, zSize, w, VL, zSize, VR, zSize, workMatr, workSize, realWork, &info);
+    result = magma_zgeev_m(MagmaNoVec, MagmaNoVec, zSize, A, zSize, w, VL, zSize, VR, zSize, workMatr, workSize, realWork, &info);
     double gpuTimeTotal = magma_sync_wtime (NULL) - gpuTimeStart;
     
     for(int i = 0; i < zSize; ++i){
@@ -203,7 +204,7 @@ void calculate(int size) {
     printf("Time: %f\n", gpuTimeTotal);
     printf("Correct: %s", fabs(zblas) < 0.0001 ? "yes": "no");
     printf("Norm of diff: %0.3f.\n", zblas);
-    printf("------------------------------------------------\n")
+    printf("------------------------------------------------\n");
     
     magma_free_pinned(eig);
     magma_free_pinned(eig_matrix);
