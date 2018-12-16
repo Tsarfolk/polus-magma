@@ -152,7 +152,7 @@ void calculate(int size) {
         double imaginary = (rand() % 2000) / 1000.0 - 1;
         magmaDoubleComplex complexNumber = MAGMA_Z_MAKE(real, imaginary);
         eig[j] = complexNumber;
-        eig_matrix[j + n * j] = complexNumber;
+        eig_matrix[j + zSize * j] = complexNumber;
     }
     
     magma_device_t device = 0;
