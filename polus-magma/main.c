@@ -193,7 +193,7 @@ void calculate(int size) {
         while(MAGMA_Z_ABS(MAGMA_Z_SUB(eig[j], lambda)) > 0.0001 && j < zSize) {
             ++j;
         }
-        if (j < n){
+        if (j < zSize) {
             eig[j] = MAGMA_Z_ZERO;
         }
     }
