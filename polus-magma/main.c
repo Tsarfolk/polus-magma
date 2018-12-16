@@ -5,11 +5,11 @@
 #include <limits.h>
 
 #define RELEASE
-//#ifndef RELEASE
+#ifndef RELEASE
 int iterationCount = 2;
-//#else
-//int iterationCount = INT_MAX;
-//#endif
+#else
+int iterationCount = INT_MAX;
+#endif
 
 #ifdef RELEASE
 #include "magma_v2.h"
@@ -241,7 +241,11 @@ void start() {
         if (secondSize > targetSize) {
             break;
         }
-        printf("current size: %d\n", currentSize);
+    }
+    
+    printf("Target sizes:\n");
+    for (int i = 0; i < count; i++) {
+        printf("%d\n", sizes[count]);
     }
 //
     count = iterationCount < count ? iterationCount : count;
