@@ -56,7 +56,7 @@ int main(int argc, const char * argv[]) {
         printf("%d", max);
         
         for(int i = 0; i < size; ++i) {
-            int index = i + size * i
+            int index = i + size * i;
             matrix[index] = MAGMA_C_ADD(matrix[index],  MAGMA_C_MAKE(max, max));
         }
         print(matrix, size);
