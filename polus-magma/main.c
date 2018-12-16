@@ -229,7 +229,7 @@ void start() {
     randDenominator = 10000;
     
     calculate(10000);
-    return
+    return;
 
     printf("Will generate\n");
     int sizes[100];
