@@ -24,7 +24,7 @@ double randNumber() {
 }
 
 void print(const magmaDoubleComplex* A, magma_int_t size) {
-    magma_zprint(size, size, A, size);
+//    magma_zprint(size, size, A, size);
 }
 
 //#ifdef RELEASE
