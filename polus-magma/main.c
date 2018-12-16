@@ -42,7 +42,7 @@ void calculate(int size) {
     magma_int_t result = magma_malloc_pinned( (void**) &matrix, size * sizeof(magmaFloatComplex));
     if (result) {
         printf("Error on allocation, result %d", result);
-        return
+        return;
     }
     
 //    magma_int_t idist = 1;
