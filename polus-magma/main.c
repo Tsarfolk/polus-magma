@@ -41,28 +41,30 @@ void calculate(int size) {
     magmaDoubleComplex *matrix;
     magma_zmalloc_pinned(&matrix, mSize);
     
-    magma_int_t ione = 1;
+    magma_int_t idist = 1;
     magma_int_t ISEED[4] = {0, 0, 0, 1};
     
     lapackf77_zlarnv(&ione, ISEED, &size, matrix);
     
-    double max = 0;
-    for (int i = 0; i < size; i++) {
-        double number = randNumber();
-        matrix[i + size * i] = number;
-        if (number > max) {
-            max = number;
-        }
-    }
-    
-    printf("%d", max);
-    
-    for(int i = 0; i < size; ++i) {
-        int index = i + size * i;
-        matrix[index] = MAGMA_Z_ADD(matrix[index],  MAGMA_Z_MAKE(max, max));
-    }
-    
     print(matrix, size);
+    
+//    double max = 0;
+//    for (int i = 0; i < size; i++) {
+//        double number = randNumber();
+//        matrix[i + size * i] = number;
+//        if (number > max) {
+//            max = number;
+//        }
+//    }
+//    
+//    printf("%d", max);
+//    
+//    for(int i = 0; i < size; ++i) {
+//        int index = i + size * i;
+//        matrix[index] = MAGMA_Z_ADD(matrix[index],  MAGMA_Z_MAKE(max, max));
+//    }
+//    
+//    print(matrix, size);
 }
 #endif
 
