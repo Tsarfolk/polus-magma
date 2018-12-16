@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "magma.h"
-#include "magma_lapack.h"
+#include <magma.h>
+#include <magma_lapack_v2.h>
 
 void init() {
     magma_init();
