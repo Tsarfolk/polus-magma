@@ -229,7 +229,7 @@ void start() {
     srand((unsigned int)time(NULL));
     randDenominator = 10000;
     
-    calculate(15000);
+    calculate(17500);
     return;
 
     printf("Will generate\n");
