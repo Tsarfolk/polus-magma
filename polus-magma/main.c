@@ -228,15 +228,15 @@ void start() {
     srand((unsigned int)time(NULL));
     randDenominator = 10000;
     
-    calculate(1000);
-    return;
+//    calculate(1000);
+//    return;
 
     printf("Will generate\n");
     int sizes[100];
     int i = 0;
     int currentSize = 1;
     int count = 0;
-    int targetSize = 10e4;
+    int targetSize = 10e3;
     while (1) {
         int firstSize = currentSize * 5;
         int secondSize = firstSize * 2;
