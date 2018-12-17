@@ -47,11 +47,11 @@ void calculate(int size) {
     magma_int_t mSize = zSize * zSize;
     
     // -------- alloc --------
-    printf("Will init matrix of size %d\n", mSize);
+    printf("Will init matrix of size %lf\n", mSize);
     magmaDoubleComplex *matrix;
     magma_int_t result = magma_malloc_pinned( (void**) &matrix, mSize * sizeof(magmaDoubleComplex));
     if (result) {
-        printf("Error on allocation, result %d", result);
+        printf("[matrix] Error on allocation, result %d", result);
         return;
     }
     
@@ -228,7 +228,7 @@ void start() {
     srand((unsigned int)time(NULL));
     randDenominator = 10000;
     
-    calculate(50000);
+    calculate(20000);
     return;
 
     printf("Will generate\n");
