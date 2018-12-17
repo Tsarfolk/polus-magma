@@ -228,7 +228,7 @@ void start() {
     srand((unsigned int)time(NULL));
     randDenominator = 10000;
     
-    calculate(500);
+    calculate(100);
     return;
 
     printf("Will generate\n");
