@@ -1,7 +1,7 @@
 all: clear
 	gcc -DADD_ -std=c99 -I /usr/local/cuda/include/ -I /polusfs/soft/magma-2.4.0_open_blas/include/ -L /polusfs/soft/magma-2.4.0_open_blas/lib/ *.c -lm -lmagma -lmagma_sparse
 push:
-	bsub -gpu- num=5 -o output.log -e error.log ./a.out
+	bsub -gpu- "num=2:mode=exclusive_process" -o output.log -e error.log ./a.out
 run:
 	./a.out
 clear:
