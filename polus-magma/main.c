@@ -20,7 +20,12 @@ int iterationCount = INT_MAX;
 double randDenominator = 0;
 
 double randNumber() {
-    return (double)(rand() % 1000000) / 1000;
+    double randNum = (double) rand();
+    if (randNum > 100000) {
+        return randNum / randDenominator
+    } else {
+        return randNum
+    }
 }
 
 void print(const magmaDoubleComplex* A, magma_int_t size) {
