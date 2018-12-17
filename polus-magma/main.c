@@ -20,7 +20,6 @@ int iterationCount = INT_MAX;
 double randDenominator = 0;
 
 double randNumber() {
-    return 1;
     double randNum = (double)rand();
     if (randNum > randDenominator) {
         return randNum / randDenominator;
@@ -229,7 +228,7 @@ void start() {
     srand((unsigned int)time(NULL));
     randDenominator = 10000;
     
-    calculate(5000);
+    calculate(1000);
     return;
 
     printf("Will generate\n");
