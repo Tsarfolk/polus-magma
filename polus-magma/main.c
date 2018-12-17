@@ -22,9 +22,9 @@ double randDenominator = 0;
 double randNumber() {
     double randNum = (double) rand();
     if (randNum > 100000) {
-        return randNum / randDenominator
+        return randNum / randDenominator;
     } else {
-        return randNum
+        return randNum;
     }
 }
 
