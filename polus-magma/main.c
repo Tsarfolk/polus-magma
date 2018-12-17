@@ -228,8 +228,8 @@ void start() {
     srand((unsigned int)time(NULL));
     randDenominator = 10000;
     
-//    calculate(1000);
-//    return;
+    calculate(500);
+    return;
 
     printf("Will generate\n");
     int sizes[100];
